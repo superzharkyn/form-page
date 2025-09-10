@@ -5,10 +5,21 @@
 <div id="supermove-lead-form"></div>
 <script>
 (function(){
+  // Get leadFormUuid from search params
+  var params = new URLSearchParams(window.location.search);
+  var leadFormUuid = params.get("leadFormUuid");
+
+  // Fallback if not provided
+  if (!leadFormUuid) {
+    console.error("leadFormUuid is missing in URL search params.");
+    return;
+  }
+
+  // Load Supermove script
   var s=document.createElement('script');
   s.src='https://cdn.development.supermove.co/external_form_embed/index.js';
   s.onload=function(){
-    SupermoveEmbed.init('7a5bff34-34af-4404-854a-9815e27b4da1', {
+    SupermoveEmbed.init(leadFormUuid, {
       container: 'supermove-lead-form'
     });
   };
